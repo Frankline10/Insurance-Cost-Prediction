@@ -26,49 +26,30 @@ if st.button("Predict"):
 
     import pandas as pd
 
-    # Step 1: Feature Engineering (SAME as training)
-
-    # Age group
-    if age < 30:
-        age_group = "Young"
-    elif age < 50:
-        age_group = "Adult"
-    else:
-        age_group = "Senior"
-
-    # BMI category
-    if bmi < 18.5:
-        bmi_category = "Underweight"
-    elif bmi < 25:
-        bmi_category = "Normal"
-    elif bmi < 30:
-        bmi_category = "Overweight"
-    else:
-        bmi_category = "Obese"
-
-    # Step 2: Create DataFrame
+    # ✅ Step 1: Create RAW input (same as training)
     input_data = pd.DataFrame({
+        'age': [age],
         'sex': [1 if sex == "female" else 0],
+        'bmi': [bmi],
         'children': [children],
         'smoker': [1 if smoker == "yes" else 0],
-        'region_northwest': [1 if region == "northwest" else 0],
-        'region_southeast': [1 if region == "southeast" else 0],
-        'region_southwest': [1 if region == "southwest" else 0],
-        'age_group': [age_group],
-        'bmi_category': [bmi_category]
+        'region': [region]
     })
 
-    # Step 3: Convert engineered categories to dummy
+    # ✅ Step 2: Convert categorical to dummy
     input_data = pd.get_dummies(input_data)
 
-    # Step 4: Match training columns
+    # ✅ Step 3: Match columns EXACTLY
     for col in model.feature_names_in_:
         if col not in input_data.columns:
             input_data[col] = 0
 
     input_data = input_data[model.feature_names_in_]
 
-    # Step 5: Predict
+    # 🔍 DEBUG (KEEP THIS)
+    st.write("Final Input:", input_data)
+
+    # ✅ Step 4: Predict
     prediction = model.predict(input_data)
 
     st.success(f"Predicted Cost: {prediction[0]}")
