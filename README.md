@@ -46,21 +46,23 @@ The dataset consists of **1338 records** with **7 features**, including both num
    Handled encoding, duplicates, and prepared data for modeling.
 
 5. **Feature Engineering**
-   Created new features such as BMI category, age group, and risk level.
+   Scaling and encoding the numerical and the categorical columns respectively.
+   Split the Train and the Test data.
 
-6. **Model Building**
-   Trained multiple machine learning models.
+7. **Model Building**
+   Build a pipeline for model training.
+   Trained multiple machine learning models using pipeline.
 
-7. **Model Evaluation**
+9. **Model Evaluation**
    Evaluated models using MAE, RMSE, and R² score.
 
-8. **Model Selection**
+10. **Model Selection**
    Selected the best-performing model based on evaluation metrics.
 
-9. **Business Insights**
+11. **Business Insights**
    Derived meaningful insights to support business decisions.
 
-10. **Model Saving & Finalization**
+12. **Model Saving & Finalization**
     Saved the final model for future predictions.
 
 ---
@@ -70,7 +72,6 @@ The dataset consists of **1338 records** with **7 features**, including both num
 * Linear Regression
 * Decision Tree Regressor
 * Random Forest Regressor
-* XGBoost Regressor (optional)
 
 ---
 
@@ -85,7 +86,7 @@ The dataset consists of **1338 records** with **7 features**, including both num
 
 ## 📈 Results / Accuracy
 
-* **R² Score:** ~0.85 – 0.88 (depending on preprocessing & tuning)
+* **R² Score:** Highest compared to other models
 * **RMSE:** Lower compared to other models
 * **MAE:** Minimum among all models
 
@@ -110,11 +111,12 @@ A robust machine learning model was successfully developed to predict insurance 
 
 ## 🚀 Future Improvements
 
-* Hyperparameter tuning for improved accuracy
-* Deployment using Streamlit or Flask
-* Integration with real-time user input
-* Use of advanced models like Gradient Boosting
+* Hyperparameter tuning for improved accuracy using GridSearchCV or RandomizedSearchCV
+* Add real-time prediction API using Flask or FastAPI
+* Use cross-validation for more robust evaluation
+* Use of advanced models like XGBoost and Gradient Boosting
 * Incorporation of additional features (medical history, lifestyle habits)
+* Use a larger and more diverse dataset for better generalization
 
 ---
 
