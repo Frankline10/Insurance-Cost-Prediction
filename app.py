@@ -1,55 +1,56 @@
 import streamlit as st
+import pandas as pd
+import joblib
 
-st.set_page_config(page_title="Insurance Predictor", layout="centered")
-st.markdown("### Enter Details Below")
-st.sidebar.header("User Input Panel")
 
-st.title("Insurance Cost Prediction App")
+# Loading the Model
 
-st.write("Enter user details to predict insurance cost")
+model = joblib.load("models/insurance_model.pkl")
 
-age = st.slider("Age", 18, 65, 25)
+
+# App Title
+
+st.set_page_config(page_title="Insurance Cost Predictor", layout="centered")
+
+st.title("Insurance Cost Prediction")
+st.write("Enter the details below to predict insurance charges")
+
+
+# User Inputs
+
+age = st.slider("Age", 18, 100, 25)
+
 sex = st.selectbox("Sex", ["male", "female"])
-bmi = st.slider("BMI", 10.0, 50.0, 25.0)
+
+bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0)
+
 children = st.slider("Number of Children", 0, 5, 0)
+
 smoker = st.selectbox("Smoker", ["yes", "no"])
-region = st.selectbox("Region", ["northeast", "northwest", "southeast", "southwest"])
 
-import pickle
-import pandas as pd
+region = st.selectbox("Region", ["southwest", "southeast", "northwest", "northeast"])
 
-model = pickle.load(open("models/insurance_model.pkl", "rb"))
 
-import pandas as pd
 
-if st.button("Predict"):
+# Prediction Button
 
-    import pandas as pd
-
-    # ✅ Step 1: Create RAW input (same as training)
+if st.button("Predict Insurance Cost"):
+    
+    # Creating DataFrame
+    
     input_data = pd.DataFrame({
-        'age': [age],
-        'sex': [1 if sex == "female" else 0],
-        'bmi': [bmi],
-        'children': [children],
-        'smoker': [1 if smoker == "yes" else 0],
-        'region': [region]
+        "age": [age],
+        "sex": [sex],
+        "bmi": [bmi],
+        "children": [children],
+        "smoker": [smoker],
+        "region": [region]
     })
 
-    # ✅ Step 2: Convert categorical to dummy
-    input_data = pd.get_dummies(input_data)
-
-    # ✅ Step 3: Match columns EXACTLY
-    for col in model.feature_names_in_:
-        if col not in input_data.columns:
-            input_data[col] = 0
-
-    input_data = input_data[model.feature_names_in_]
-
-    # 🔍 DEBUG (KEEP THIS)
-    st.write("Final Input:", input_data)
-
-    # ✅ Step 4: Predict
+    
+    # Prediction
     prediction = model.predict(input_data)
 
-    st.success(f"Predicted Cost: {prediction[0]}")
+    
+    # Output
+    st.success(f"Estimated Insurance Cost: ₹ {round(prediction[0], 2)}")
