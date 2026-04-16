@@ -103,6 +103,14 @@ The dataset consists of **1338 records** with **7 features**, including both num
 
 ---
 
+## Live Application Link
+
+   https://insurance-cost-prediction-n2zpv9bxmumkfe9zkpzpkk.streamlit.app
+
+
+---
+
+
 ## 🧾 Conclusion
 
 A robust machine learning model was successfully developed to predict insurance costs. Random Forest emerged as the best-performing model due to its ability to handle complex relationships. The project also provided valuable business insights that can help insurance companies optimize pricing strategies and improve risk assessment.
